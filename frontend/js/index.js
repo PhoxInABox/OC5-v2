@@ -76,7 +76,7 @@ function createButtonLinkProduct(linkProduct) {
   let buttonBuy = document.createElement("button");
   linkProduct.appendChild(buttonBuy);
   buttonBuy.classList.add("btn", "btn-warning", "block-right");
-  // Ajout texte au bouton
+  // //
   buttonBuy.textContent = "Select";
 }
 
