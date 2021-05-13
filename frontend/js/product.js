@@ -124,7 +124,7 @@ async function getTeddies() {
       console.log(Teddies);
       getIdUrlAndCard(Teddies);
     } else {
-      console.error("Retour du serveur : ", response.status);
+      console.error("Server : ", response.status);
     }
   } catch (e) {
     console.log(e);

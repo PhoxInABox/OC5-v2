@@ -87,7 +87,7 @@ async function getTeddies() {
       let Teddies = await response.json();
       createCardTeddies(Teddies);
     } else {
-      console.error("Retour du serveur : ", response.status);
+      console.error("Server : ", response.status);
     }
   } catch (e) {
     console.log(e);
