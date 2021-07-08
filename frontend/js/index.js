@@ -51,38 +51,27 @@ function createCardTeddies(Teddies) {
     divLinkPrice.appendChild(priceTeddie);
     priceTeddie.classList.add("price", "my-2", "font-weight-bold");
     priceTeddie.textContent = "£" + Teddies[i].price / 100;
+    //tolocalestring - check notes
 
     let linkProduct = document.createElement("a");
+    //write button here
+    linkProduct.classList.add("btn", "btn-warning", "block-right");
+    linkProduct.textContent = "Select";
+    linkProduct.href = "/frontend/page/product.html?id=" + Teddies[i]._id;
     divLinkPrice.appendChild(linkProduct);
-    getUrlProduct(Teddies, i, linkProduct);
-    createButtonLinkProduct(linkProduct);
   }
-}
-
-function getUrlProduct(Teddies, i, linkProduct) {
-  let splitUrl = window.location.pathname.split("/");
-  let lastItem = splitUrl.pop();
-  let url =
-    window.location.origin +
-    window.location.pathname.replace(lastItem, "./frontend/page/product.html");
-
-  let urlObj = new URL(url);
-  let idTeddies = Teddies[i]._id;
-  urlObj.searchParams.append("id", idTeddies);
-  linkProduct.href = urlObj;
 }
 
 function createButtonLinkProduct(linkProduct) {
   let buttonBuy = document.createElement("button");
   linkProduct.appendChild(buttonBuy);
-  buttonBuy.classList.add("btn", "btn-warning", "block-right");
+
   // //
-  buttonBuy.textContent = "Select";
 }
 
 async function getTeddies() {
   try {
-    let response = await fetch("http://localhost:3000/api/Teddies");
+    let response = await fetch("http://localhost:3000/api/teddies");
     if (response.ok) {
       let Teddies = await response.json();
       createCardTeddies(Teddies);

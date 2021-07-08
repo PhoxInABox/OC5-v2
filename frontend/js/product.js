@@ -9,6 +9,7 @@ function getIdUrlAndCard(Teddies) {
   let urlSearch = new URLSearchParams(window.location.search);
   console.log(urlSearch);
   let idTeddie = urlSearch.get("id");
+  return idTeddie;
   console.log(idTeddie);
   getTeddieItem(Teddies, idTeddie);
 }
@@ -72,37 +73,39 @@ function createCardTeddie(choosenTeddie, idTeddie) {
   priceTeddie.textContent = "£" + choosenTeddie.price / 100;
 
   let linkProduct = document.createElement("a");
+  //write a button here
   divLinkPrice.appendChild(linkProduct);
 
   let buttonBuy = document.createElement("button");
-  linkProduct.appendChild(buttonBuy);
+  divCardBody.appendChild(buttonBuy);
   buttonBuy.classList.add("btn", "btn-warning", "block-right");
 
   buttonBuy.textContent = "Add to Cart";
   console.log(idTeddie);
-  getLensTeddie(buttonBuy, idTeddie);
+  getSizeTeddie(buttonBuy, idTeddie);
 }
 
 function chooseSize(divCardBody, choosenTeddie) {
-  let sentenceChoiceLens = document.createElement("p");
-  divCardBody.appendChild(sentenceChoiceLens);
-  sentenceChoiceLens.classList.add("text-left", "my-3");
-  sentenceChoiceLens.textContent = "Choose a Size :";
+  let sentenceChoiceSize = document.createElement("p");
+  divCardBody.appendChild(sentenceChoiceSize);
+  sentenceChoiceSize.classList.add("text-left", "my-3");
+  sentenceChoiceSize.textContent = "Choose a Size :";
 
-  let choiceLens = document.createElement("select");
-  divCardBody.appendChild(choiceLens);
-  choiceLens.classList.add("form-control", "mb-5");
-  choiceLens.id = "list";
+  let choiceSize = document.createElement("select");
+  divCardBody.appendChild(choiceSize);
+  choiceSize.classList.add("form-control", "mb-5");
+  choiceSize.id = "list";
 
-  numberSizes = choosenTeddie.Sizes;
+  numberSizes = choosenTeddie.colors;
   for (let i = 0; i < numberSizes.length; i++) {
-    let optionLens = document.createElement("option");
-    choiceLens.appendChild(optionLens);
-    optionLens.textContent = choosenTeddie.Sizes[i];
+    let optionSize = document.createElement("option");
+    choiceSize.appendChild(optionSize);
+    optionSize.textContent = choosenTeddie.colors[i];
+    optionSize.value = choosenTeddie.colors[i];
   }
 }
 
-function getLensTeddie(buttonBuy, idTeddie) {
+function getSizeTeddie(buttonBuy, idTeddie) {
   buttonBuy.addEventListener("click", function () {
     let basketContent = JSON.parse(localStorage.getItem("basketContent"));
     let selectedSizes = document.getElementById("list").value;
@@ -117,12 +120,14 @@ function getLensTeddie(buttonBuy, idTeddie) {
 }
 
 async function getTeddies() {
+  const id = getIdUrlAndCard();
+
   try {
-    let response = await fetch("http://localhost:3000/api/Teddies");
+    let response = await fetch("http://localhost:3000/api/Teddies/" + id);
     if (response.ok) {
       let Teddies = await response.json();
+      createCardTeddie(Teddies);
       console.log(Teddies);
-      getIdUrlAndCard(Teddies);
     } else {
       console.error("Server : ", response.status);
     }
