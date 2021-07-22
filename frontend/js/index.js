@@ -1,29 +1,24 @@
 function createCardTeddies(Teddies) {
-  let divParentParent = document.createElement("div");
+  let row = document.createElement("div");
   const mainHome = document.getElementById("main-home");
-  mainHome.appendChild(divParentParent);
-  divParentParent.classList.add(
-    "row-cols-1",
-    "row-cols-md-4",
-    "row-cols-lg-5",
-    "d-flex",
-    "flex-wrap",
-    "justify-content-between",
-    "align-items-between"
-  );
+  mainHome.appendChild(row);
+  row.classList.add("row");
 
   for (let i = 0; i < Teddies.length; i++) {
-    let divParent = document.createElement("div");
-    divParentParent.appendChild(divParent);
-    divParent.classList.add("card", "col", "m-3", "pt-3");
+    let col = document.createElement("div");
+    let card = document.createElement("div");
+    col.appendChild(card);
+    col.classList.add("col-12", "col-sm-6", "col-md-4");
+    card.classList.add("card");
+    row.appendChild(col);
 
     let imageTeddie = document.createElement("img");
-    divParent.appendChild(imageTeddie);
-    imageTeddie.classList.add("card-image-top", "photo", "img-fluid");
+    card.appendChild(imageTeddie);
+    imageTeddie.classList.add("card-img-top", "card-img-small", "img-fluid");
     imageTeddie.src = Teddies[i].imageUrl;
 
     let divCardBody = document.createElement("div");
-    divParent.appendChild(divCardBody);
+    card.appendChild(divCardBody);
     divCardBody.classList.add(
       "card-body",
       "text-center",
@@ -74,6 +69,7 @@ async function getTeddies() {
     let response = await fetch("http://localhost:3000/api/teddies");
     if (response.ok) {
       let Teddies = await response.json();
+      console.log(Teddies);
       createCardTeddies(Teddies);
     } else {
       console.error("Server : ", response.status);

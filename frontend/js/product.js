@@ -21,22 +21,22 @@ function getTeddieItem(Teddies, idTeddie) {
 }
 
 function createCardTeddie(choosenTeddie, idTeddie) {
-  let divParentParent = document.createElement("div");
+  let row = document.createElement("div");
   const mainProduct = document.getElementById("main-product");
-  mainProduct.appendChild(divParentParent);
-  divParentParent.classList.add("row", "mx-auto", "my-3", "w-75");
+  mainProduct.appendChild(row);
+  row.classList.add("row", "mx-auto", "my-3", "w-75");
 
-  let divParent = document.createElement("div");
-  divParentParent.appendChild(divParent);
-  divParent.classList.add("card", "col", "m-auto", "p-5");
+  let card = document.createElement("div");
+  row.appendChild(card);
+  card.classList.add("card", "col", "m-auto", "p-5");
 
   let imageTeddie = document.createElement("img");
-  divParent.appendChild(imageTeddie);
-  imageTeddie.classList.add("card-image-top", "photo", "img-fluid");
+  card.appendChild(imageTeddie);
+  imageTeddie.classList.add("card-img-top", "card-img-small", "img-fluid");
   imageTeddie.src = choosenTeddie.imageUrl;
 
   let divCardBody = document.createElement("div");
-  divParent.appendChild(divCardBody);
+  card.appendChild(divCardBody);
   divCardBody.classList.add(
     "card-body",
     "text-center",
